@@ -9,15 +9,24 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var integers = Iterable<int>.generate(20);
+    var integers = Iterable<int>.generate(50);
 
     return MaterialApp(
       home: Scaffold(
         body: Center(
-          child: Column(
-            children: integers
-                .map((i) => Text('Hello World $i!'))
-                .toList(growable: false),
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Colors.black,
+              ),
+            ),
+            padding: const EdgeInsets.all(4),
+            width: 150,
+            child: ListView(
+              children: integers
+                  .map((i) => Text('Hello World $i!'))
+                  .toList(growable: false),
+            ),
           ),
         ),
       ),
