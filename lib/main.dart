@@ -4,13 +4,25 @@ void main() {
   runApp(const MainApp());
 }
 
+class ListViewBuilder extends StatelessWidget {
+  const ListViewBuilder({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemCount: null,
+      itemBuilder: (context, index) {
+        return Text('Hello World $index!');
+      },
+    );
+  }
+}
+
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var integers = Iterable<int>.generate(50);
-
     return MaterialApp(
       home: Scaffold(
         body: Center(
@@ -22,11 +34,7 @@ class MainApp extends StatelessWidget {
             ),
             padding: const EdgeInsets.all(4),
             width: 150,
-            child: ListView(
-              children: integers
-                  .map((i) => Text('Hello World $i!'))
-                  .toList(growable: false),
-            ),
+            child: const ListViewBuilder(),
           ),
         ),
       ),
