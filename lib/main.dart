@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(MainApp());
 }
 
 class ListViewBuilder extends StatelessWidget {
-  const ListViewBuilder({super.key});
+  const ListViewBuilder({
+    super.key,
+    this.controller,
+  });
+
+  final ScrollController? controller;
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      controller: controller,
       itemCount: null,
       prototypeItem: tile(0),
       itemBuilder: (context, index) {
@@ -30,7 +36,9 @@ class ListViewBuilder extends StatelessWidget {
 }
 
 class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+  MainApp({super.key});
+
+  final ScrollController controller = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +46,21 @@ class MainApp extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           title: const Text('ListView Builder'),
+          actions: [
+            Padding(
+              padding: const EdgeInsets.only(right: 50.0),
+              child: IconButton(
+                icon: const Icon(Icons.arrow_upward),
+                onPressed: () {
+                  controller.animateTo(
+                    0,
+                    duration: const Duration(milliseconds: 500),
+                    curve: Curves.easeInOut,
+                  );
+                },
+              ),
+            ),
+          ],
         ),
         body: Center(
           child: Container(
@@ -48,7 +71,9 @@ class MainApp extends StatelessWidget {
             ),
             padding: const EdgeInsets.all(4),
             width: 250,
-            child: const ListViewBuilder(),
+            child: ListViewBuilder(
+              controller: controller,
+            ),
           ),
         ),
       ),
